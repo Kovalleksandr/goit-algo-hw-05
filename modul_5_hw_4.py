@@ -11,37 +11,27 @@ def input_error(func):
             return "Not enough arguments. Try again."
     return inner
 
-# Функція для обробки введеного рядка
+@input_error
 def parse_input(user_input):
     cmd, *args = user_input.split()
-    cmd = cmd.strip().lower()
-    return cmd, args
+    return cmd.strip().lower(), args
 
-# Додавання контакту
+
 @input_error
 def add_contact(args, contacts):
-    if len(args) != 2:
-        raise ValueError  # Викличе повідомлення "Give me name and phone, please."
-    name, phone = args
+    name, phone = args 
     contacts[name] = phone
     return "Contact added."
 
-# Зміна існуючого контакту
+
 @input_error
 def change_contact(args, contacts):
-    if len(args) != 2:
-        raise ValueError  # Викличе повідомлення "Give me name and phone, please."
     name, phone = args
-    if name not in contacts:
-        raise KeyError  # Викличе повідомлення "This contact does not exist."
     contacts[name] = phone
     return "Contact updated."
 
-# Отримання номера контакту
 @input_error
 def show_phone(args, contacts):
-    if len(args) != 1:
-        raise IndexError
     name = args[0]
     return contacts[name]
 
